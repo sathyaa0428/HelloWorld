@@ -1,9 +1,26 @@
 pipeline {
   agent any
   stages {
-    stage('First') {
+    stage('Build') {
+      parallel {
+        stage('Build') {
+          steps {
+            echo 'Compile the Java Code'
+          }
+        }
+
+        stage('Test') {
+          steps {
+            echo 'Run Test Suite'
+          }
+        }
+
+      }
+    }
+
+    stage('Deploy') {
       steps {
-        echo "Hi, This is my first pipeline stage ${appName}"
+        input(message: 'Do you want to Deploy ?', id: 'Ok')
       }
     }
 

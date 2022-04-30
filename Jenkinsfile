@@ -25,8 +25,19 @@ pipeline {
     }
 
     stage('Deploy') {
-      steps {
-        input(message: 'Do you want to Deploy ?', id: 'Ok')
+      parallel {
+        stage('Deploy') {
+          steps {
+            input(message: 'Do you want to Deploy ?', id: 'Ok')
+          }
+        }
+
+        stage('Artifacts') {
+          steps {
+            archiveArtifacts 'SampleFile.txt'
+          }
+        }
+
       }
     }
 

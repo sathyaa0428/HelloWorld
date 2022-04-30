@@ -15,6 +15,12 @@ pipeline {
           }
         }
 
+        stage('Test Log') {
+          steps {
+            writeFile(file: 'SampleFile.txt', text: 'Sample Hello World', encoding: 'UTF-8')
+          }
+        }
+
       }
     }
 
